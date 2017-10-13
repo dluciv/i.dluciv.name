@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+   <title>Inkeri Assistant</title>
+   <meta charset="utf-8" />
+   <style>
+   body {
+     font-size: 5mm;
+     font-family: sans-serif;
+     margin: 5mm;
+   }
+
+   input {
+     font-size: 5mm;
+     font-family: monospace;
+   }
+
+   input[type="button"] {
+     font-family: sans-serif;
+   }
+
+   input[type="submit"] {
+     font-family: sans-serif;
+   }
+   
+   form, p {
+     text-align: center;
+   }
+
+   table {
+     margin-left: auto;
+     margin-right: auto;
+   }
+
+   td {
+     padding: 0.25em;
+   }
+   </style>
+<script type="text/javascript">
+//<![CDATA[
+function speaksmth(text) {
+  var synth = window.speechSynthesis;
+  var voices = synth.getVoices();
+
+  var utterThis = new SpeechSynthesisUtterance(text);
+  utterThis.rate = 1.2;
+  utterThis.pitch = 1.5;
+  utterThis.voice = voices[0];
+
+  synth.speak(utterThis);
+};
+
+function tell_status() {
+  window.speaksmth("Привет! Говорит Инкери. Ситуация с тюленями спокойная. Ситуация с вальдшнепами спокойная. Вероятность зомби-атаки — 800 на миллион. Это меньше статистической погрешности. Спасибо, всего доброго!");
+};
+//]]>
+</script>
+</head>
+<body>
+<p>
+<img src="inkeri.png" style="width: 100%; max-height: 80%;" alt="Pretty Inkeri portrait" />
+</p>
+<form action="#" onsubmit="tell_status();">
+<input type="submit" value="Обстановка">
+</form>
+</body>
+</html>
