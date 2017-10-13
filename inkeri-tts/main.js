@@ -24,12 +24,16 @@ $(document).ready(function() {
         success: function(data) {
 
           var tempr = data.main.temp;
-          var location = data.name;
-          var desc = data.weather.description;
+          var wind = data.wind.speed;
+          var vis = data.visibility;
+          var hum = data.main.humidity;
+          var prs = Math.round(0.750062 * data.main.pressure);
 
-          window.weather = "Температура за бортом: " + tempr + " градусов. ";
+          window.weather =
+            "Температура за бортом в градусах — " + tempr + ". Ветер в метрах в секунду — " + wind + ". Видимость в метрах — " +
+            vis + ". Влажность в процентах — " + hum + ". Давление в миллиметрах ртутного столба — " + prs + ". ";
 
-          console.log(data);
+          console.log(window.weather);
         }
       });
     }
@@ -52,5 +56,6 @@ function speaksmth(text) {
 };
 
 function tell_status() {
-  window.speaksmth("Привет! Говорит И́нкери Норпа Лехтокурпа. " + window.weather + "Ситуация с тюленями спокойная. Ситуация с ва́льдшнепами спокойная. Вероятность зомби-атаки — 815 на миллион. Это меньше статистической погрешности. Спасибо, всего доброго!");
+  var zp = 800 + Math.round(Math.random()*50);
+  window.speaksmth("Привет! Говорит И́нкери Норпа Лехтокурпа. " + window.weather + "Ситуация с тюленями спокойная. Ситуация с ва́льдшнепами спокойная. Вероятность зомби-атаки — " + zp + " на миллион. Это меньше статистической погрешности. Спасибо, всего доброго!");
 };
