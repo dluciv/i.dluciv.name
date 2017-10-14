@@ -2,6 +2,42 @@
 
 window.weather = "";
 
+var _units = {
+  "градус" : ["градуса", "градусов"],
+  "метр" : ["метра", "метров"],
+  "миллиметр" : ["миллиметра", "миллиметров"],
+  "процент": ["процента", "процентов"],
+};
+
+for(var u in _units)
+  if(_units.hasOwnProperty(u))
+     _units[u].unshift(u);
+
+
+function declinateUnit(value, unit){
+  var a = _units[unit];
+  var lastdigit = value % 10;
+  var lasttwodigits = value % 100;
+  if(lasttwodigits >= 10 && lasttwodigits <= 20)
+    lastdigit = 5;
+
+  switch(lastdigit){
+    case 0:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      return a[2];
+    case 1:
+      return a[0];
+    case 2:
+    case 3:
+    case 4:
+      return a[1];
+  }
+}
+
 $(document).ready(function() {
   var lat, lon, api_url;
 
@@ -18,8 +54,11 @@ $(document).ready(function() {
         var prs = Math.round(0.750062 * data.main.pressure);
 
         window.weather =
-          "Температура " + where + " в градусах — " + tempr + ". Ветер в метрах в секунду — " + wind +
-          ". Влажность в процентах — " + hum + ". Давление в миллиметрах ртутного столба — " + prs + ". ";
+          "Температура " + where +
+          " — "          + tempr + ' ' + declinateUnit(tempr, "градус"   ) + '. ' +
+          "Ветер — "     + wind  + ' ' + declinateUnit(wind,  "метр"     ) + ' в секунду. ' +
+          "Влажность — " + hum   + ' ' + declinateUnit(hum,   "процент"  ) + '. ' +
+          "Давление — "  + prs   + ' ' + declinateUnit(prs,   "миллиметр") + ' ртутного столба. ';
 
         console.log(window.weather);
       }
@@ -31,10 +70,10 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(gotLocation);
 
     var gotLocation = function(position) {
-      var lat = position.coords.latitude;
-      var lon = position.coords.longitude;
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
 
-      var api_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
+      api_url = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
         lat + '&lon=' +
         lon + '&units=metric&appid=' + window.owmAPIkey;
       // http://api.openweathermap.org/data/2.5/weather?q=London,uk&callback=test&appid=b1b15e88fa79722
@@ -44,7 +83,7 @@ $(document).ready(function() {
   } else {
     // alert('Your browser doesnt support geolocation. Sorry.');
       // var api_url = 'http://api.openweathermap.org/data/2.5/weather?lat=60.439803&lon=30.097812&units=metric&appid=' + window.owmAPIkey;
-      var api_url = 'http://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=' + window.owmAPIkey;
+      api_url = 'http://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&appid=' + window.owmAPIkey;
 
       getweather(api_url, "в И́нгрии");
   }
