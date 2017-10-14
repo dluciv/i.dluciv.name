@@ -53,12 +53,13 @@ $(document).ready(function() {
 
 function speaksmth(text) {
   var synth = window.speechSynthesis;
-  var voices = synth.getVoices();
+  // var voices = synth.getVoices();
 
   var utterThis = new SpeechSynthesisUtterance(text);
   utterThis.rate = 1.2;
   utterThis.pitch = 1.5;
-  utterThis.voice = voices[0];
+  utterThis.lang = 'ru-RU';
+  // utterThis.voice = voices[0];
 
   synth.speak(utterThis);
 };
