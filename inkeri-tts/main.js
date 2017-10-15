@@ -57,7 +57,7 @@ $(document).ready(function() {
           "Температура " + where +
           " — "          + tempr + ' ' + declinateUnit(tempr, "градус"   ) + '. ' +
           "Ветер — "     + wind  + ' ' + declinateUnit(wind,  "метр"     ) + ' в секунду. ' +
-          "Влажность — " + hum   + ' ' + declinateUnit(hum,   "процент"  ) + '. ' +
+          "Влажность — " + hum   + "%. " +
           "Давление — "  + prs   + ' ' + declinateUnit(prs,   "миллиметр") + ' ртутного столба. ';
 
         console.log(window.weather);
