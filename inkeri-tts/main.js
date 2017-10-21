@@ -117,12 +117,12 @@ function tell_status() {
   window.speaksmth("Привет! Говорит И́нкери Норпа Лехтокурпа. " + window.weather + ' ' +  window.seals + ' ' +  window.woodcocks + ' ' + window.zombies + ' ' + "Спасибо, всего доброго!");
 };
 
-var recognition = new SpeechRecognition();
+window.recognition = new SpeechRecognition();
 recognition.lang = 'ru-RU';
 recognition.interimResults = false;
 recognition.maxAlternatives = 0;
 
-recognition.onresult = function(event) {
+window.recognition.onresult = function(event) {
   var speechResult = event.results[0][0].transcript.toLowerCase();
   // diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
   console.log('Result: ' + speechResult);
@@ -142,15 +142,20 @@ recognition.onresult = function(event) {
   window.speaksmth(response);
 }
 
-recognition.onspeechend = function() {
+window.recognition.onspeechend = function() {
   var sttBtn = document.querySelector('#sttbtn');
-  recognition.stop();
   sttBtn.disabled = false;
+  window.recognition.stop();
 }
 
+window.recognition.onerror = function(event) {
+  var sttBtn = document.querySelector('#sttbtn');
+  sttBtn.disabled = false;
+  alert(event.error);
+}
 
 function stt() {
   var sttBtn = document.querySelector('#sttbtn');
   sttBtn.disabled = true;
-  recognition.start();
+  window.recognition.start();
 };
