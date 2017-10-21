@@ -120,10 +120,9 @@ function tell_status() {
 window.recognition = new SpeechRecognition();
 recognition.lang = 'ru-RU';
 recognition.interimResults = false;
-recognition.maxAlternatives = 0;
+// recognition.maxAlternatives = 0;
 
 window.recognition.onresult = function(event) {
-  alert("11");
   var speechResult = event.results[0][0].transcript.toLowerCase();
   // diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
   console.log('Result: ' + speechResult);
@@ -141,29 +140,22 @@ window.recognition.onresult = function(event) {
     response = window.weather;
   }
   window.speaksmth(response);
-  alert("12");
 }
 
 window.recognition.onspeechend = function() {
-  alert("21");
   var sttBtn = document.querySelector('#sttbtn');
   sttBtn.disabled = false;
   window.recognition.stop();
-  alert("22");
 }
 
 window.recognition.onerror = function(event) {
-  alert("31");
   var sttBtn = document.querySelector('#sttbtn');
-  //sttBtn.disabled = false;
-  alert(event.error);
-  alert("32");
+  sttBtn.disabled = false;
+  alert("Speech recognition error: " + event.error);
 }
 
 function stt() {
-  alert("41");
   var sttBtn = document.querySelector('#sttbtn');
   sttBtn.disabled = true;
   window.recognition.start();
-  alert("42");
 };
