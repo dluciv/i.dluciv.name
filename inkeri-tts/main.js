@@ -1,5 +1,10 @@
 ﻿window.owmAPIkey = "65b3dc1574aadec85e6638331e30b380"; // dluciv@gmail.com
 
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+
 window.weather = "";
 
 var _units = {
@@ -95,7 +100,7 @@ function speaksmth(text) {
   // var voices = synth.getVoices();
 
   var utterThis = new SpeechSynthesisUtterance(text);
-  utterThis.rate = 1.2;
+  utterThis.rate = 1.1;
   utterThis.pitch = 1.5;
   utterThis.lang = 'ru-RU';
   // utterThis.voice = voices[0];
@@ -103,7 +108,49 @@ function speaksmth(text) {
   synth.speak(utterThis);
 };
 
+window.seals = "Ситуация с тюленями спокойная.";
+window.woodcocks = "Ситуация с ва́льдшнепами спокойная.";
+var zp = 800 + Math.round(Math.random()*50);
+window.zombies = "Вероятность зомби-атаки — " + zp + " на миллион. Это меньше статистической погрешности.";
+
 function tell_status() {
-  var zp = 800 + Math.round(Math.random()*50);
-  window.speaksmth("Привет! Говорит И́нкери Норпа Лехтокурпа. " + window.weather + "Ситуация с тюленями спокойная. Ситуация с ва́льдшнепами спокойная. Вероятность зомби-атаки — " + zp + " на миллион. Это меньше статистической погрешности. Спасибо, всего доброго!");
+  window.speaksmth("Привет! Говорит И́нкери Норпа Лехтокурпа. " + window.weather + ' ' +  window.seals + ' ' +  window.woodcocks + ' ' + window.zombies + ' ' + "Спасибо, всего доброго!");
+};
+
+var recognition = new SpeechRecognition();
+recognition.lang = 'ru-RU';
+recognition.interimResults = false;
+recognition.maxAlternatives = 0;
+
+recognition.onresult = function(event) {
+  var speechResult = event.results[0][0].transcript.toLowerCase();
+  // diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
+  console.log('Result: ' + speechResult);
+  console.log('Confidence: ' + event.results[0][0].confidence);
+
+  var response = "Извините, не поняла.";
+  if(speechResult.includes("тюлен"))
+  {
+    response = window.seals;
+  } else if(speechResult.includes("вальдшне")) {
+    response = window.woodcocks;
+  } else if(speechResult.includes("зомби")) {
+    response = window.zombies;
+  } else if(speechResult.includes("погод")) {
+    response = window.weather;
+  }
+  window.speaksmth(response);
+}
+
+recognition.onspeechend = function() {
+  var sttBtn = document.querySelector('#sttbtn');
+  recognition.stop();
+  sttBtn.disabled = false;
+}
+
+
+function stt() {
+  var sttBtn = document.querySelector('#sttbtn');
+  sttBtn.disabled = true;
+  recognition.start();
 };
