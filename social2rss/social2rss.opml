@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+  <head>
+    <title>Изменчивые фиды из социальных сетей...</title>
+  </head>
+  <body>
+    <outline text="social2rss" title="social2rss">
+      <outline text="Спасение тюленей 699-23-99" title="Спасение тюленей 699-23-99" type="rss" xmlUrl="http://myfeeds.info/?2angrbmt" htmlUrl="http://mysocialfeeds.com/"/>
+      <outline text="Студсовет Матмеха СПбГУ" title="Студсовет Матмеха СПбГУ" type="rss" xmlUrl="http://myfeeds.info/?hbcu1wd3" htmlUrl="http://myfeeds.info/?hbcu1wd3"/>
+      <outline text="Бесконечное Лето 2D" title="Бесконечное Лето 2D" type="rss" xmlUrl="http://myfeeds.info/?viwgxrqk" htmlUrl="http://myfeeds.info/?viwgxrqk"/>
+      <outline text="LMR | Love, Money, Rock'n'Roll" title="LMR | Love, Money, Rock'n'Roll" type="rss" xmlUrl="http://myfeeds.info/?gsym3hw8" htmlUrl="http://myfeeds.info/?gsym3hw8"/>
+    </outline>
+  </body>
+</opml>
